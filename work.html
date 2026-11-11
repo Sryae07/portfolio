@@ -187,6 +187,57 @@
       </blockquote>
     </article>
 
+    <article class="case" id="teacup">
+      <h2>A village in a teacup</h2>
+      <p class="case-lede">
+        A single HTML file that draws a volcanic hot spring town inside a porcelain
+        cup. <a href="teacup.html">Open it</a>.
+      </p>
+      <dl>
+        <dt>Problem</dt>
+        <dd>
+          Build a whole landscape — volcano, springs, inns, bridges, bamboo, a
+          shrine — and keep it readable at the size of a teacup, with no model
+          files and no textures downloaded.
+        </dd>
+        <dt>Constraints</dt>
+        <dd>
+          One pasteable file. Three.js only, loaded as a module. No art assets, so
+          every material is a colour, a gradient or something painted into a canvas
+          at load time.
+        </dd>
+        <dt>What I built</dt>
+        <dd>
+          A lathe for the cup and saucer, a polar grid for the ground whose height
+          function carves a valley ring and climbs to the wall, a cone for the
+          volcano with three lava channels laid along its surface, five springs with
+          their own glow, thirteen buildings, two arched bridges, forty-one bamboo
+          clusters, a torii and six stone lanterns, a shader-driven steam field, and
+          drifting cloud sprites.
+        </dd>
+        <dt>What broke</dt>
+        <dd>
+          The ground rendered black although its colours were green: the polar grid
+          was wound the wrong way, so every normal pointed into the earth. Making
+          the material double-sided fixed the lighting without touching the mesh.
+        </dd>
+        <dt>Still broken</dt>
+        <dd>
+          The steam is a particle field with velocity and drag, not a fluid
+          simulation, and the lava is a tube on a curve rather than something that
+          flows and cools. Both read correctly at a glance and would not survive a
+          closer look.
+        </dd>
+      </dl>
+      <blockquote>
+        <p>
+          The scene only started to look intentional after I raised the ground to
+          the brim and let soil fill the cup: a bowl that is mostly empty is a bowl,
+          but a bowl full of earth is a world.
+        </p>
+      </blockquote>
+    </article>
+
     <p class="meta">
       Want the shorter version? The <a href="notes.html">notes page</a> collects the
       transferable parts — the checks I now run before calling something finished.
