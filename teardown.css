@@ -417,7 +417,7 @@ body.teardown {
 @media (max-width: 860px) {
   .stage {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 62vh auto auto;
+    grid-template-rows: 56vh auto auto;
     height: auto;
     min-height: 0;
   }
@@ -431,7 +431,7 @@ body.teardown {
      bottom of the whole stacked page */
   .stage-ui {
     inset: 0 0 auto 0;
-    height: 62vh;
+    height: 56vh;
   }
 
   /* one scrollable strip along the bottom of the model, not a floating blob */
