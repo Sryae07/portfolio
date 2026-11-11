@@ -540,13 +540,19 @@ code {
   border: 0;
 }
 
+/* Nothing here needs to move, so with the preference set the few animated
+   things and the smooth scroll simply turn themselves off. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card,
+  .work,
+  .note,
+  .button,
+  .chip {
+    animation: none;
+    transition: none;
   }
 }
