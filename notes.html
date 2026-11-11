@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes — what I learned running AI tools on my own machine</title>
+  <meta name="description" content="Eight short notes from running local models and agents on a laptop: token budgets, tool naming, retry rules, and why an SVG beats a generated picture.">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Notes — what I learned running AI tools on my own machine">
+  <meta property="og:description" content="Eight practical notes on local models and agents. Filter them by keyword; nothing here needs a server.">
+  <meta property="og:image" content="images/og-image.jpg">
+  <link rel="stylesheet" href="style.css">
+  <script src="nav.js" defer></script>
+  <script src="notes.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-nav></header>
+
+  <main id="main" class="wrap">
+    <p class="eyebrow">Notes</p>
+    <h1>The parts I would tell someone else</h1>
+    <p class="lede">
+      Running models and agents on a laptop is mostly bookkeeping: how much memory
+      is free, how many tokens are left, which of the five things that can fail
+      actually failed. These are the rules I now follow, collected while building
+      the <a href="work.html">projects on the work page</a>.
+    </p>
+
+    <form class="filter" role="search" id="filter-form">
+      <div>
+        <label for="filter-input">Filter these notes</label>
+        <input type="search" id="filter-input" name="q" placeholder="memory, tokens, retry…"
+               autocomplete="off" aria-describedby="filter-out">
+      </div>
+      <p><button class="button secondary" type="reset" id="filter-reset">Clear</button></p>
+    </form>
+    <p class="filter-out" id="filter-out" role="status" aria-live="polite">Showing all 8 notes.</p>
+
+    <ul class="note-list" id="note-list">
+      <li class="note" data-keywords="memory vram gpu model size download">
+        <h3>Check free memory before you download, not after</h3>
+        <p>
+          A model that needs 20 GB of memory will not run on a card with 8 GB, and
+          no amount of patience changes that. I read the free-memory figure first
+          and pick the model to fit it — the reverse order cost me an afternoon and
+          14 GB of downloads.
+        </p>
+      </li>
+      <li class="note" data-keywords="tokens empty output max_tokens budget reasoning">
+        <h3>An empty answer is usually a budget problem</h3>
+        <p>
+          When a model returns nothing, the first suspect is the token cap, not the
+          network. A reasoning model spends part of that budget thinking, so a cap
+          of 20 can produce a perfect request and an empty reply. Raise the cap and
+          read the usage numbers before you touch the prompt.
+        </p>
+      </li>
+      <li class="note" data-keywords="api error 500 retry network timeout">
+        <h3>Retry once before you debug</h3>
+        <p>
+          A single 500 from a hosted API is not a bug in my code. I now run the same
+          request again; if it passes, I write the first failure in the log and move
+          on. Debugging a transient error teaches you nothing and costs an hour.
+        </p>
+      </li>
+      <li class="note" data-keywords="tools agent naming schema interface">
+        <h3>One clear tool beats five vague ones</h3>
+        <p>
+          An agent picks tools by name and description alone. When two tools sound
+          alike, it picks the wrong one and then explains the choice confidently.
+          Fewer tools with sharper descriptions produced better behaviour than any
+          prompt I tried.
+        </p>
+      </li>
+      <li class="note" data-keywords="screenshot image vision log visual">
+        <h3>A screenshot is evidence; a description is an opinion</h3>
+        <p>
+          For anything visual — a layout, a chart, a page that "looks wrong" — I send
+          the image instead of describing it. Descriptions lose exactly the detail
+          that matters, and they lose it silently.
+        </p>
+      </li>
+      <li class="note" data-keywords="svg diagram picture generation code">
+        <h3>For diagrams, ask for code, not a picture</h3>
+        <p>
+          A generated image of a diagram cannot be corrected, only regenerated. Hand
+          written SVG can be edited line by line, stays sharp at any size, and weighs
+          a few kilobytes. Every figure on this site is SVG for that reason.
+        </p>
+      </li>
+      <li class="note" data-keywords="notes writing log changelog project habits">
+        <h3>Write down what broke, on the day it breaks</h3>
+        <p>
+          Six weeks later the only detail I remember is that it worked in the end.
+          One line per failure — what I expected, what happened — is enough to
+          recognise the same problem when it returns, which it always does.
+        </p>
+      </li>
+      <li class="note" data-keywords="local privacy data offline cost">
+        <h3>Local models buy privacy, not quality</h3>
+        <p>
+          A small local model is worse at reasoning than a hosted one and better at
+          keeping data on the machine. That trade is worth it for personal notes and
+          not worth it for real work, and it is a decision to make per task rather
+          than once.
+        </p>
+      </li>
+    </ul>
+
+    <p class="meta">
+      Written after building the four projects on the <a href="work.html">work
+      page</a>. The transferable checks are on <a href="about.html">about</a>.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Jiang Sirui · <a href="about.html">about and contact</a> · Web Technologies 2026, BiUH</p>
+  </footer>
+</body>
+</html>
