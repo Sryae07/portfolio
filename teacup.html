@@ -172,10 +172,18 @@
   color: #eaf4f8;
   border-color: rgba(160, 190, 215, 0.5);
 }
+/* ?embed=1 is used by the landing page, where the frame and caption live
+   outside this document */
+body.is-embed .back-link,
+body.is-embed .legend,
+body.is-embed .hint {
+  display: none;
+}
 </style>
 </head>
 <body>
   <a class="back-link" href="index.html">&#8592; Portfolio</a>
+  <script>if (location.search.indexOf("embed=1") !== -1) document.body.classList.add("is-embed");</script>
 <canvas id="c"></canvas>
 
 <div class="hud">

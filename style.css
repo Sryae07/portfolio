@@ -556,3 +556,37 @@ code {
     transition: none;
   }
 }
+
+/* the teacup scene embedded in the landing page */
+.stage-frame {
+  margin: 1.6rem 0 0;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b1218;
+}
+
+.stage-frame iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.stage-frame figcaption {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: #101a21;
+  color: #9fb3c8;
+  font-size: 0.82rem;
+}
+
+.stage-frame a {
+  color: #7fd6c8;
+}
+
+@media (max-width: 640px) {
+  .stage-frame iframe {
+    aspect-ratio: 4 / 5;
+  }
+}
