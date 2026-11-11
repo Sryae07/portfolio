@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work — four small systems and what they cost</title>
+  <meta name="description" content="Four case studies: a supervised agent framework, a chat bot with layered memory, a browser plugin that outlives anti-scraping, and a slide-to-document pipeline.">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Work — four small systems and what they cost">
+  <meta property="og:description" content="Agent framework, chat bot, browser plugin, document pipeline. Each one written up as problem, constraints, what broke, what stayed.">
+  <meta property="og:image" content="images/og-image.jpg">
+  <link rel="stylesheet" href="style.css">
+  <script src="nav.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-nav></header>
+
+  <main id="main" class="wrap">
+    <p class="eyebrow">Case studies</p>
+    <h1>Four systems, written up honestly</h1>
+    <p class="lede">
+      Each of these still runs on my laptop. I have written them up the same way:
+      what the problem was, what I was not allowed to do, what broke, and what is
+      still broken. The last section is the one I would be asked about in an
+      interview, so it is the one I did not tidy up.
+    </p>
+
+    <article class="case" id="agent">
+      <h2>A local agent framework, supervised</h2>
+      <dl>
+        <dt>Problem</dt>
+        <dd>
+          I wanted a coding agent that keeps working while I am in class — long
+          tasks, several steps, no one watching the terminal.
+        </dd>
+        <dt>Constraints</dt>
+        <dd>
+          Windows laptop, 8 GB of graphics memory, no container runtime, and the
+          framework ships as a desktop application I do not control.
+        </dd>
+        <dt>What I built</dt>
+        <dd>
+          A separate runtime with a profile that only exposes the tools I allow, a
+          launcher that runs it headless, and a supervisor that restarts it.
+        </dd>
+        <dt>What broke</dt>
+        <dd>
+          The supervisor hung for two hours because the launcher process stays alive
+          while it waits for a login. A process being alive is not the same as the
+          service being up.
+        </dd>
+        <dt>Still broken</dt>
+        <dd>
+          Session state is per-profile, so a restart loses the open conversation.
+          I work around it by keeping tasks short enough to survive one restart.
+        </dd>
+      </dl>
+      <blockquote>
+        <p>
+          The fix was a clock, not a check: after 100 seconds of "starting" the
+          supervisor assumes the launch failed and moves on. Time-boxing a wait is
+          the cheapest reliability tool I know.
+        </p>
+      </blockquote>
+    </article>
+
+    <article class="case" id="bot">
+      <h2>A chat bot with layered memory and a temper</h2>
+      <dl>
+        <dt>Problem</dt>
+        <dd>
+          A friend group wanted a bot that remembers context across days and does
+          not sound like a support page.
+        </dd>
+        <dt>Constraints</dt>
+        <dd>
+          One Windows machine, no cloud database allowed, and a chat protocol whose
+          HTTP transport is unreliable in this build.
+        </dd>
+        <dt>What I built</dt>
+        <dd>
+          Four memory layers — a short rolling window, extracted facts, a profile
+          refreshed every few turns, and a raw archive per day — all keyed by
+          conversation so one chat never leaks into another.
+        </dd>
+        <dt>What broke</dt>
+        <dd>
+          The protocol library reported a healthy HTTP endpoint that never actually
+          bound a port. Logs said "started", the socket said otherwise.
+        </dd>
+        <dt>Still broken</dt>
+        <dd>
+          Fact extraction is keyword-driven, so a fact phrased unusually is simply
+          not stored. A better extractor would need a model call per turn, which
+          costs more than this project is worth.
+        </dd>
+      </dl>
+      <blockquote>
+        <p>
+          I stopped trusting "the service says it is up" and started trusting a
+          socket. Every status check in the project now talks to the port, not to
+          the log.
+        </p>
+      </blockquote>
+    </article>
+
+    <article class="case" id="plugin">
+      <h2>A plugin that reads what the browser hides</h2>
+      <dl>
+        <dt>Problem</dt>
+        <dd>
+          Short video links carry their content behind an anti-scraping shell: the
+          HTML I could fetch contains no text at all.
+        </dd>
+        <dt>Constraints</dt>
+        <dd>
+          No API key, no login, and it had to work from inside my own tooling
+          rather than as a separate app I have to remember to open.
+        </dd>
+        <dt>What I built</dt>
+        <dd>
+          A plugin that drives a real browser, waits for the page to make its own
+          data request, and keeps that response — then exposes the parsed video,
+          its frames and its file as three tools.
+        </dd>
+        <dt>What broke</dt>
+        <dd>
+          Three approaches died first: a downloader that demanded cookies, a cookie
+          reader that could not open the browser profile, and a plain HTTP fetch
+          that returned a 72 KB obfuscated script.
+        </dd>
+        <dt>Still broken</dt>
+        <dd>
+          It depends on one browser being installed and on an endpoint name that
+          the site can rename any day. When it breaks, the fix is one line — but I
+          will not know until it does.
+        </dd>
+      </dl>
+      <blockquote>
+        <p>
+          The lesson was about who does the work: I could not beat the obfuscation,
+          so I let the page do the request it was always going to do and listened.
+        </p>
+      </blockquote>
+    </article>
+
+    <article class="case" id="docs">
+      <h2>Turning 276 slides into a document I could revise from</h2>
+      <dl>
+        <dt>Problem</dt>
+        <dd>
+          A statistics course shipped its material as slide decks where most of the
+          mathematics is an image, not text.
+        </dd>
+        <dt>Constraints</dt>
+        <dd>
+          A deadline of one evening, a free word processor, and no OCR service I
+          could send 276 pages to.
+        </dd>
+        <dt>What I built</dt>
+        <dd>
+          An extractor for the slide XML, a renderer that turns each page into an
+          image, and a generator that composes the final document with proper
+          tables, code blocks and running heads.
+        </dd>
+        <dt>What broke</dt>
+        <dd>
+          The document opened fine but the export to PDF hung forever. The cause was
+          element order inside a table definition — a file that opens is not the
+          same as a file that is valid.
+        </dd>
+        <dt>Still broken</dt>
+        <dd>
+          Formulas that were images are transcribed by hand, so a wrong symbol is
+          invisible to the pipeline. Two of them were wrong on the first pass.
+        </dd>
+      </dl>
+      <blockquote>
+        <p>
+          Rendering every page as an image was the decision that saved the evening:
+          the text layer was lying, and only the pictures told the truth.
+        </p>
+      </blockquote>
+    </article>
+
+    <p class="meta">
+      Want the shorter version? The <a href="notes.html">notes page</a> collects the
+      transferable parts — the checks I now run before calling something finished.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Jiang Sirui · <a href="about.html">about and contact</a> · Web Technologies 2026, BiUH</p>
+  </footer>
+</body>
+</html>
