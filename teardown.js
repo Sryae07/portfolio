@@ -464,6 +464,11 @@ const orbit = {
   maxRadius: 120,
 };
 
+// Framing that follows the canvas shape: on a phone the horizontal field of
+// view runs out long before the vertical one, so a fixed radius clips the model.
+const fit = { radius: 70, targetY: 7.4 };
+let userZoom = false;
+
 function applyOrbit() {
   const sinPhi = Math.sin(orbit.phi);
   camera.position.set(
@@ -988,6 +993,8 @@ function renderDetail(id) {
   `;
 }
 
+const narrow = window.matchMedia('(max-width: 860px)');
+
 function select(id, fromList) {
   if (selected === id) {
     id = null;
@@ -1019,6 +1026,13 @@ function select(id, fromList) {
   });
 
   renderDetail(selected);
+
+  // On a phone the detail panel sits below the canvas, so a tap that changed it
+  // would otherwise look like nothing happened.
+  if (selected && narrow.matches) {
+    const panel = document.querySelector('.panel--detail');
+    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 }
 
 /* -------------------------------------------------------------------- picking */
@@ -1071,6 +1085,7 @@ canvas.addEventListener('pointermove', (event) => {
         orbit.minRadius,
         orbit.maxRadius,
       );
+      userZoom = true;
       pinchStart = dist;
       applyOrbit();
       return;
@@ -1118,6 +1133,7 @@ canvas.addEventListener('wheel', (event) => {
     orbit.minRadius,
     orbit.maxRadius,
   );
+  userZoom = true;
   applyOrbit();
 }, { passive: false });
 
@@ -1137,7 +1153,9 @@ function setExploded(on) {
 }
 
 function resetView() {
-  orbit.radius = 70;
+  userZoom = false;
+  orbit.radius = fit.radius;
+  orbit.target.set(0, fit.targetY, 0);
   orbit.theta = -0.62;
   orbit.phi = 1.12;
   root.rotation.y = 0;
@@ -1170,6 +1188,32 @@ window.addEventListener('keydown', (event) => {
 
 /* -------------------------------------------------------------------- resize */
 
+function fitView() {
+  const box = new THREE.Box3().setFromObject(laptop);
+  if (box.isEmpty()) return;
+
+  const size = box.getSize(new THREE.Vector3());
+  const vFov = THREE.MathUtils.degToRad(camera.fov);
+  const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(camera.aspect, 0.2));
+  const limiting = Math.min(vFov, hFov);
+  const span = Math.max(size.x, size.z, size.y * 0.9);
+
+  fit.radius = THREE.MathUtils.clamp(
+    (span / 2 / Math.tan(limiting / 2)) * 1.32,
+    orbit.minRadius,
+    orbit.maxRadius,
+  );
+  // aim a third of the way up: the lid is tall but thin, so the geometric
+  // centre of the bounding box sits well above what the eye reads as the middle
+  fit.targetY = box.min.y + size.y * 0.32;
+
+  if (!userZoom) {
+    orbit.radius = fit.radius;
+    orbit.target.set(0, fit.targetY, 0);
+    applyOrbit();
+  }
+}
+
 function onResize() {
   const w = host.clientWidth;
   const h = host.clientHeight;
@@ -1177,6 +1221,7 @@ function onResize() {
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
   renderer.setSize(w, h, false);
+  fitView();
 }
 
 if ('ResizeObserver' in window) {
@@ -1203,7 +1248,8 @@ function tick() {
       entry.t += (entry.target - entry.t) * Math.min(1, dt * 7);
       if (Math.abs(entry.target - entry.t) < 0.002) entry.t = entry.target;
 
-      const k = easeOut(entry.t) * entry.def.distance;
+      const spread = narrow.matches ? 0.58 : 1;
+      const k = easeOut(entry.t) * entry.def.distance * spread;
       entry.group.position.copy(entry.home).addScaledVector(entry.def.dir, k);
     }
   });
@@ -1212,7 +1258,7 @@ function tick() {
 
   // labels: everything once the machine is open, otherwise only what you are
   // pointing at or have picked, so the collapsed view stays readable
-  const showAll = labelsOn && exploded;
+  const showAll = labelsOn && exploded && !narrow.matches;
   entries.forEach((entry, id) => {
     const el = labelNodes.get(id);
     const def = entry.def;

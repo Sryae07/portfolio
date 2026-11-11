@@ -417,7 +417,7 @@ body.teardown {
 @media (max-width: 860px) {
   .stage {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 58vh auto auto;
+    grid-template-rows: 62vh auto auto;
     height: auto;
     min-height: 0;
   }
@@ -427,8 +427,40 @@ body.teardown {
     grid-row: 1;
   }
 
+  /* the overlay belongs to the canvas row only, otherwise "bottom" means the
+     bottom of the whole stacked page */
+  .stage-ui {
+    inset: 0 0 auto 0;
+    height: 62vh;
+  }
+
+  /* one scrollable strip along the bottom of the model, not a floating blob */
+  .toolbar {
+    top: auto;
+    bottom: 0.55rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    transform: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    border-radius: 0.9rem;
+    padding: 0.22rem;
+  }
+
+  .toolbar button {
+    padding: 0.42rem 0.62rem;
+    font-size: 0.74rem;
+  }
+
+  .label {
+    font-size: 0.62rem;
+    max-width: 8.5rem;
+  }
+
+  /* let the page scroll instead of nesting a scroller inside it */
   .panel {
-    max-height: 22rem;
+    max-height: none;
   }
 
   .panel--parts {
