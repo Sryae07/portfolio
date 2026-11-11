@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jiang Sirui — building small, working things</title>
+  <meta name="description" content="Computer science student in Hainan. I build small local tools — an agent framework, a chat bot, a browser scraper — and write down what broke on the way.">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jiang Sirui — building small, working things">
+  <meta property="og:description" content="Four case studies from a student who runs his own tools: an agent framework, a chat bot, a browser plugin, a document pipeline.">
+  <meta property="og:image" content="images/og-image.jpg">
+  <link rel="stylesheet" href="style.css">
+  <script src="nav.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-nav></header>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Jiang Sirui · Computer Science, BiUH</p>
+        <h1>I build small tools that keep running after I stop watching them.</h1>
+        <p class="lede">
+          Most of what I make is local, unglamorous and used by exactly one person:
+          an agent framework on my own laptop, a chat bot that answers my friends, a
+          plugin that reads the pages my browser refuses to hand over. Each one
+          taught me a failure mode I had not met before.
+        </p>
+        <p class="hero-actions">
+          <a class="button" href="work.html">Read the case studies</a>
+          <a class="button secondary" href="notes.html">Browse the notes</a>
+        </p>
+      </div>
+      <div>
+        <img src="images/hero.svg" width="1200" height="900"
+             alt="Diagram: a laptop in the middle, with four small boxes around it labelled agent, chat bot, plugin and documents, all connected to the laptop.">
+      </div>
+    </section>
+
+    <section aria-labelledby="what">
+      <h2 id="what">What I actually do</h2>
+      <div class="card-grid">
+        <article class="card">
+          <span class="tag">Systems</span>
+          <h3>Make it run unattended</h3>
+          <p>
+            A process that works while I am asleep needs a supervisor, a restart
+            policy and logs that say why it died. Most of my work is that, not the
+            happy path.
+          </p>
+        </article>
+        <article class="card">
+          <span class="tag">Debugging</span>
+          <h3>Find the real cause</h3>
+          <p>
+            The error message is a symptom. Twice this year the culprit was a broken
+            filesystem and a permission list, not the code that reported it.
+          </p>
+        </article>
+        <article class="card">
+          <span class="tag">Writing</span>
+          <h3>Leave a trail</h3>
+          <p>
+            Every project here has notes: what I expected, what happened, what I
+            changed. If I cannot explain a bug, I did not understand it.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="selected">
+      <h2 id="selected">Selected work</h2>
+      <ul class="work-list">
+        <li class="work">
+          <h3><a href="work.html#agent">A local agent framework, supervised</a></h3>
+          <p>
+            Running an agent harness on a laptop, and the supervisor that restarts it
+            when the session dies but the process lives on.
+          </p>
+          <p class="meta"><span class="chip">2026</span> <span class="chip">Python</span> <span class="chip">Windows services</span></p>
+        </li>
+        <li class="work">
+          <h3><a href="work.html#bot">A chat bot with memory and a temper</a></h3>
+          <p>
+            An OneBot client with layered memory, a personality that stays in
+            character, and a hard line around what it will not say.
+          </p>
+          <p class="meta"><span class="chip">2026</span> <span class="chip">WebSocket</span> <span class="chip">LLM</span></p>
+        </li>
+        <li class="work">
+          <h3><a href="work.html#plugin">A plugin that reads what the browser hides</a></h3>
+          <p>
+            Extracting video metadata from a page that obfuscates its own HTML, by
+            letting the page make its own API call and keeping the answer.
+          </p>
+          <p class="meta"><span class="chip">2026</span> <span class="chip">Node</span> <span class="chip">Playwright</span></p>
+        </li>
+        <li class="work">
+          <h3><a href="work.html#docs">Turning slides into study documents</a></h3>
+          <p>
+            A pipeline that reads 276 pages of lecture slides and produces a
+            reviewed, typeset document — including the pages where the maths is
+            pixels, not text.
+          </p>
+          <p class="meta"><span class="chip">2026</span> <span class="chip">Python</span> <span class="chip">OOXML</span></p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Jiang Sirui · <a href="about.html">about and contact</a> · Web Technologies 2026, BiUH</p>
+  </footer>
+</body>
+</html>
