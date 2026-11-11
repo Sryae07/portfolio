@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="hTitle hDesc">
+  <title id="hTitle">Four small systems around one laptop</title>
+  <desc id="hDesc">A laptop in the centre of the frame. Four rounded boxes sit around it, labelled agent, chat bot, plugin and documents, each joined to the laptop by a thin dashed line.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdfaf5"/>
+      <stop offset="1" stop-color="#f2ebe0"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f4faf9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="180" cy="150" r="200" fill="#0f766e" opacity="0.05"/>
+  <circle cx="1040" cy="760" r="220" fill="#0f766e" opacity="0.045"/>
+
+  <!-- connecting lines: drawn first, behind everything -->
+  <g stroke="#0f766e" stroke-width="2.5" stroke-opacity="0.35" stroke-dasharray="9 9" fill="none">
+    <path d="M470 300 H430 Q400 300 400 330 V400"/>
+    <path d="M730 300 H770 Q800 300 800 330 V400"/>
+    <path d="M470 620 H430 Q400 620 400 590 V520"/>
+    <path d="M730 620 H770 Q800 620 800 590 V520"/>
+  </g>
+
+  <!-- the laptop -->
+  <g transform="translate(360 300)">
+    <rect x="0" y="0" width="480" height="320" rx="20" fill="url(#lid)" stroke="#0f766e" stroke-width="3" stroke-opacity="0.5"/>
+    <rect x="26" y="26" width="428" height="268" rx="10" fill="#0f766e" opacity="0.07"/>
+    <rect x="26" y="26" width="428" height="34" rx="10" fill="#0f766e" opacity="0.12"/>
+    <circle cx="48" cy="43" r="6" fill="#0f766e" opacity="0.5"/>
+    <circle cx="68" cy="43" r="6" fill="#0f766e" opacity="0.32"/>
+    <circle cx="88" cy="43" r="6" fill="#0f766e" opacity="0.2"/>
+    <rect x="52" y="92" width="210" height="13" rx="6" fill="#0f766e" opacity="0.42"/>
+    <rect x="52" y="122" width="330" height="10" rx="5" fill="#0f766e" opacity="0.2"/>
+    <rect x="52" y="146" width="290" height="10" rx="5" fill="#0f766e" opacity="0.16"/>
+    <rect x="52" y="186" width="120" height="40" rx="9" fill="#0f766e" opacity="0.55"/>
+    <rect x="190" y="186" width="120" height="40" rx="9" fill="#0f766e" opacity="0.18"/>
+    <rect x="52" y="250" width="376" height="10" rx="5" fill="#0f766e" opacity="0.1"/>
+    <!-- base -->
+    <rect x="-46" y="320" width="572" height="26" rx="13" fill="#0f766e" opacity="0.28"/>
+  </g>
+
+  <!-- four labelled boxes -->
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <!-- agent -->
+    <g transform="translate(120 190)">
+      <rect width="280" height="112" rx="16" fill="#ffffff" stroke="#0f766e" stroke-width="3" stroke-opacity="0.4"/>
+      <circle cx="40" cy="40" r="13" fill="#0f766e" opacity="0.75"/>
+      <text x="66" y="48" font-size="27" font-weight="700" fill="#12352f">agent</text>
+      <text x="40" y="82" font-size="19" fill="#4c5a54">long tasks, supervised</text>
+    </g>
+    <!-- chat bot -->
+    <g transform="translate(800 190)">
+      <rect width="280" height="112" rx="16" fill="#ffffff" stroke="#0f766e" stroke-width="3" stroke-opacity="0.4"/>
+      <circle cx="40" cy="40" r="13" fill="#0f766e" opacity="0.75"/>
+      <text x="66" y="48" font-size="27" font-weight="700" fill="#12352f">chat bot</text>
+      <text x="40" y="82" font-size="19" fill="#4c5a54">memory in four layers</text>
+    </g>
+    <!-- plugin -->
+    <g transform="translate(120 598)">
+      <rect width="280" height="112" rx="16" fill="#ffffff" stroke="#0f766e" stroke-width="3" stroke-opacity="0.4"/>
+      <circle cx="40" cy="40" r="13" fill="#0f766e" opacity="0.75"/>
+      <text x="66" y="48" font-size="27" font-weight="700" fill="#12352f">plugin</text>
+      <text x="40" y="82" font-size="19" fill="#4c5a54">reads a hostile page</text>
+    </g>
+    <!-- documents -->
+    <g transform="translate(800 598)">
+      <rect width="280" height="112" rx="16" fill="#ffffff" stroke="#0f766e" stroke-width="3" stroke-opacity="0.4"/>
+      <circle cx="40" cy="40" r="13" fill="#0f766e" opacity="0.75"/>
+      <text x="66" y="48" font-size="27" font-weight="700" fill="#12352f">documents</text>
+      <text x="40" y="82" font-size="19" fill="#4c5a54">276 slides to one file</text>
+    </g>
+  </g>
+
+  <text x="600" y="826" text-anchor="middle" font-family="Georgia, serif"
+        font-size="30" fill="#0f766e" opacity="0.8">four systems, one laptop, nothing in the cloud</text>
+</svg>
