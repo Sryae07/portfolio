@@ -5,7 +5,7 @@
 
 import * as THREE from 'three';
 
-const ACCENT = 0x2dd4bf;
+const ACCENT = 0x14b8a6;
 
 /* --------------------------------------------------------------- dimensions */
 
@@ -559,7 +559,7 @@ function paintForSelection(entry, on) {
           mat.userData.baseIntensity = mat.emissiveIntensity;
         }
         mat.emissive.setHex(ACCENT);
-        mat.emissiveIntensity = 0.55;
+        mat.emissiveIntensity = 0.3;
       } else if (mat.userData.baseEmissive !== undefined) {
         mat.emissive.setHex(mat.userData.baseEmissive);
         mat.emissiveIntensity = mat.userData.baseIntensity;
