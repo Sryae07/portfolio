@@ -1,5 +1,5 @@
 /* One nav, injected into every page.
-   The only reason this file exists: the four pages must never disagree about
+   The only reason this file exists: the pages must never disagree about
    what the menu says. Edit this file and every page changes. */
 
 (function () {
@@ -8,6 +8,7 @@
   var NAV_ITEMS = [
     { href: 'index.html', label: 'Home' },
     { href: 'work.html', label: 'Work' },
+    { href: 'teardown.html', label: 'Teardown' },
     { href: 'notes.html', label: 'Notes' },
     { href: 'about.html', label: 'About' }
   ];

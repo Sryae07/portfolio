@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teardown — a laptop opened up in the browser</title>
+<meta name="description" content="An interactive 3D teardown: click a part, watch it lift out of the chassis, and read what it does. Built with Three.js and no model files — every screw is code.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Teardown — a laptop opened up in the browser">
+<meta property="og:description" content="Click a part, it lifts out and explains itself. Geometry generated in code with Three.js; no exported 3D model.">
+<meta property="og:image" content="images/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="teardown.css">
+</head>
+<body class="teardown">
+<a class="skip-link" href="#stage">Skip to the 3D view</a>
+
+<header class="site-header" data-nav></header>
+
+<main id="stage" class="stage">
+
+  <aside class="panel panel--parts" aria-labelledby="parts-title">
+    <div class="panel-head">
+      <h1 id="parts-title">Teardown</h1>
+      <span class="count" id="parts-count">14</span>
+    </div>
+    <p class="panel-kicker">
+      A 16-inch laptop opened up. Every part below is generated in code — there is
+      no downloaded model and no texture file.
+    </p>
+    <ul class="parts-list" id="parts-list"></ul>
+  </aside>
+
+  <div class="stage-canvas" id="canvas-host">
+    <div class="labels" id="labels"></div>
+    <div class="stage-fallback" id="fallback">
+      <div>
+        <p><strong>This view needs WebGL.</strong></p>
+        <p>The rest of the site works without it — the parts list on the left still
+           describes every component.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage-ui">
+    <div class="toolbar" role="toolbar" aria-label="View controls">
+      <button type="button" id="btn-explode" aria-pressed="false">Explode all</button>
+      <button type="button" id="btn-reset">Reset view</button>
+      <button type="button" id="btn-labels" aria-pressed="true">Labels</button>
+      <button type="button" id="btn-spin" aria-pressed="true">Auto-rotate</button>
+    </div>
+    <p class="hint" id="hint">
+      Drag to orbit · scroll to zoom · click a part to lift it out.
+      <kbd>R</kbd> resets, <kbd>E</kbd> explodes, <kbd>Esc</kbd> drops the selection.
+    </p>
+  </div>
+
+  <aside class="panel panel--detail" aria-labelledby="detail-title">
+    <div class="panel-head">
+      <h2 id="detail-title">Component</h2>
+      <span class="count" id="detail-state">—</span>
+    </div>
+    <div class="detail-body" id="detail">
+      <p class="detail-empty">
+        Nothing selected. Click a part in the 3D view — or a name in the list — to
+        see what it does and which numbers matter.
+      </p>
+    </div>
+  </aside>
+
+</main>
+
+<script src="nav.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.min.js"
+  }
+}
+</script>
+<script type="module" src="teardown.js"></script>
+<noscript>
+  <p class="noscript-note">The teardown is a JavaScript view. The written version of
+     every part is in the list on this page and in the notes.</p>
+</noscript>
+</body>
+</html>

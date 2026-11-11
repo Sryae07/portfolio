@@ -1,0 +1,462 @@
+/* ============================================================================
+   teardown.css — the 3D teardown page.
+   Loads after style.css; only the stage and its panels live here, so the rest
+   of the portfolio keeps its paper look.
+   ========================================================================== */
+
+body.teardown {
+  background: #070b0e;
+  color: #dbe7ef;
+}
+
+.teardown .site-header {
+  background: rgba(7, 11, 14, 0.86);
+  border-bottom-color: #16232b;
+}
+
+.teardown .brand,
+.teardown .nav-list a {
+  color: #cfe0ea;
+}
+
+.teardown .nav-list a:hover {
+  color: #7ce8d8;
+}
+
+.teardown .nav-list a[aria-current="page"] {
+  color: #7ce8d8;
+  border-bottom-color: #2dd4bf;
+}
+
+.teardown .nav-toggle {
+  border-color: #22343f;
+  color: #cfe0ea;
+  background: rgba(20, 32, 40, 0.7);
+}
+
+/* ------------------------------------------------------------------ layout */
+
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr) 19rem;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  height: calc(100vh - 4.25rem);
+  min-height: 34rem;
+  overflow: hidden;
+}
+
+.stage-canvas {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(45, 212, 191, 0.12), transparent 58%),
+    radial-gradient(circle at 50% 120%, rgba(56, 132, 255, 0.1), transparent 62%),
+    #070b0e;
+}
+
+.stage-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.stage-canvas canvas.is-dragging {
+  cursor: grabbing;
+}
+
+.stage-canvas canvas.is-over {
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------ panels */
+
+.panel {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: rgba(10, 16, 20, 0.92);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #24373f transparent;
+}
+
+.panel--parts {
+  grid-column: 1;
+  grid-row: 1;
+  border-right: 1px solid #16232b;
+}
+
+.panel--detail {
+  grid-column: 3;
+  grid-row: 1;
+  border-left: 1px solid #16232b;
+}
+
+.panel-head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem 0.6rem;
+  background: rgba(10, 16, 20, 0.97);
+  border-bottom: 1px solid #16232b;
+}
+
+.panel-head h2,
+.panel-head h1 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: #eaf4f8;
+}
+
+.panel-head h1 {
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.panel-kicker {
+  margin: 0;
+  padding: 0.55rem 1rem 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #8fa9b4;
+  border-bottom: 1px solid #16232b;
+}
+
+.noscript-note {
+  padding: 1rem;
+}
+
+.panel-head .count {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6d8894;
+}
+
+/* -----------------------------------------------------------------– parts */
+
+.parts-list {
+  margin: 0;
+  padding: 0.35rem 0.4rem 1rem;
+  list-style: none;
+}
+
+.parts-list button {
+  display: grid;
+  grid-template-columns: 0.55rem 1fr;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  background: none;
+  color: #b9cbd6;
+  font: inherit;
+  font-size: 0.83rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.parts-list button:hover {
+  background: rgba(45, 212, 191, 0.08);
+  color: #eaf4f8;
+}
+
+.parts-list button[aria-pressed="true"] {
+  background: rgba(45, 212, 191, 0.14);
+  border-color: rgba(45, 212, 191, 0.4);
+  color: #eaf4f8;
+}
+
+.parts-list .swatch {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0.4rem currentColor;
+}
+
+.parts-list .part-meta {
+  display: block;
+  font-size: 0.7rem;
+  color: #6d8894;
+  margin-top: 0.1rem;
+}
+
+/* ------------------------------------------------------------------ detail */
+
+.detail-body {
+  padding: 1rem;
+}
+
+.detail-empty {
+  padding: 1.2rem 1rem;
+  color: #6d8894;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.detail-name {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  color: #eaf4f8;
+}
+
+.detail-role {
+  margin: 0 0 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #2dd4bf;
+}
+
+.detail-desc {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #b9cbd6;
+}
+
+.spec-list {
+  margin: 0;
+  border-top: 1px solid #16232b;
+}
+
+.spec-list div {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid #101c22;
+}
+
+.spec-list dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6d8894;
+  padding-top: 0.1rem;
+}
+
+.spec-list dd {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.45;
+  color: #dbe7ef;
+}
+
+/* ------------------------------------------------------------------ overlay */
+
+.stage-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.stage-ui > * {
+  pointer-events: auto;
+}
+
+.toolbar {
+  position: absolute;
+  top: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  padding: 0.35rem;
+  border: 1px solid #1c2c34;
+  border-radius: 999px;
+  background: rgba(10, 16, 20, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.toolbar button {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  color: #b9cbd6;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.toolbar button:hover {
+  background: rgba(45, 212, 191, 0.12);
+  color: #eaf4f8;
+}
+
+.toolbar button[aria-pressed="true"],
+.toolbar button.is-active {
+  background: rgba(45, 212, 191, 0.18);
+  border-color: rgba(45, 212, 191, 0.45);
+  color: #b7f5ec;
+}
+
+.hint {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(30rem, calc(100% - 2rem));
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #1c2c34;
+  border-radius: 0.5rem;
+  background: rgba(10, 16, 20, 0.8);
+  color: #8fa6b3;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.hint kbd {
+  padding: 0.05rem 0.3rem;
+  border: 1px solid #2a3f49;
+  border-radius: 0.25rem;
+  background: #101c22;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  color: #cfe0ea;
+}
+
+/* ------------------------------------------------------------------- labels */
+
+.labels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(45, 212, 191, 0.45);
+  border-radius: 0.3rem;
+  background: rgba(6, 12, 16, 0.86);
+  color: #b7f5ec;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.label.is-visible {
+  opacity: 1;
+}
+
+.label::before {
+  content: "";
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: #2dd4bf;
+  box-shadow: 0 0 0.4rem #2dd4bf;
+}
+
+/* ----------------------------------------------------------------- fallback */
+
+.stage-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+  color: #8fa6b3;
+}
+
+.stage.is-broken .stage-fallback {
+  display: grid;
+}
+
+.stage.is-broken .stage-canvas canvas,
+.stage.is-broken .labels,
+.stage.is-broken .toolbar {
+  display: none;
+}
+
+/* --------------------------------------------------------------- responsive */
+
+@media (max-width: 1100px) {
+  .stage {
+    grid-template-columns: 12.5rem minmax(0, 1fr) 15rem;
+  }
+
+  .spec-list div {
+    grid-template-columns: 5rem 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 58vh auto auto;
+    height: auto;
+    min-height: 0;
+  }
+
+  .stage-canvas {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .panel {
+    max-height: 22rem;
+  }
+
+  .panel--parts {
+    grid-column: 1;
+    grid-row: 2;
+    border-right: 0;
+    border-top: 1px solid #16232b;
+  }
+
+  .panel--detail {
+    grid-column: 1;
+    grid-row: 3;
+    border-left: 0;
+    border-top: 1px solid #16232b;
+  }
+
+  .parts-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label {
+    transition: none;
+  }
+}
