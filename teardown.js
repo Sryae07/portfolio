@@ -1199,7 +1199,7 @@ function fitView() {
   const span = Math.max(size.x, size.z, size.y * 0.9);
 
   fit.radius = THREE.MathUtils.clamp(
-    (span / 2 / Math.tan(limiting / 2)) * 1.32,
+    (span / 2 / Math.tan(limiting / 2)) * 1.4,
     orbit.minRadius,
     orbit.maxRadius,
   );
