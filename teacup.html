@@ -33,7 +33,7 @@
   .hud {
     position: fixed;
     left: clamp(1rem, 3vw, 2.4rem);
-    top: clamp(1rem, 3vw, 2.2rem);
+    top: calc(clamp(1rem, 3vw, 2.2rem) + 2.9rem);
     pointer-events: none;
     max-width: 22rem;
   }
@@ -153,37 +153,76 @@
   @media (prefers-reduced-motion: reduce) {
     #boot .bar::after { animation: none; transform: scaleX(1); }
   }
-.back-link {
+/* the shared menu, restyled for a page that is a full-screen scene */
+.teacup-nav {
   position: fixed;
-  top: 1rem;
-  right: 1.2rem;
-  z-index: 20;
-  padding: 0.45rem 0.85rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: rgba(8, 14, 20, 0.55);
+  border-bottom: 1px solid rgba(160, 190, 215, 0.14);
+  backdrop-filter: blur(8px);
+}
+.teacup-nav .nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.7rem clamp(1rem, 3vw, 2rem);
+}
+.teacup-nav .brand {
+  color: #eaf4f8;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  margin-right: auto;
+}
+.teacup-nav .nav-toggle {
+  padding: 0.35rem 0.7rem;
   border: 1px solid rgba(160, 190, 215, 0.28);
   border-radius: 999px;
-  background: rgba(8, 14, 20, 0.55);
-  color: #9fb3c8;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
+  background: none;
+  color: #a9bccb;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.teacup-nav .nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.teacup-nav .nav-list a {
+  color: #a9bccb;
+  font-size: 0.85rem;
   text-decoration: none;
-  backdrop-filter: blur(6px);
 }
-.back-link:hover {
-  color: #eaf4f8;
-  border-color: rgba(160, 190, 215, 0.5);
+.teacup-nav .nav-list a:hover,
+.teacup-nav .nav-list a[aria-current="page"] {
+  color: #7fd6c8;
 }
-/* ?embed=1 is used by the landing page, where the frame and caption live
-   outside this document */
-body.is-embed .back-link,
-body.is-embed .legend,
-body.is-embed .hint {
-  display: none;
+@media (min-width: 701px) {
+  .teacup-nav .nav-toggle { display: none; }
+}
+@media (max-width: 700px) {
+  .teacup-nav .nav-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.4rem 0 0.6rem;
+  }
+  .teacup-nav .nav-list.is-open { display: flex; }
 }
 </style>
 </head>
-<body>
-  <a class="back-link" href="index.html">&#8592; Portfolio</a>
-  <script>if (location.search.indexOf("embed=1") !== -1) document.body.classList.add("is-embed");</script>
+<body class="teacup-page">
+<header class="site-header teacup-nav" data-nav></header>
 <canvas id="c"></canvas>
 
 <div class="hud">
@@ -214,6 +253,7 @@ body.is-embed .hint {
 <div id="boot"><div><div>pouring the world</div><div class="bar"></div></div></div>
 <div id="fallback"><div>This scene needs WebGL. Try a recent Chrome or Edge.</div></div>
 
+<script src="nav.js"></script>
 <script type="module">
 /* ------------------------------------------------------------------ *
  * Kazan-yu — a volcanic hot spring village inside a porcelain teacup

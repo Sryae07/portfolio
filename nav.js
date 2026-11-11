@@ -9,6 +9,7 @@
     { href: 'index.html', label: 'Home' },
     { href: 'work.html', label: 'Work' },
     { href: 'teardown.html', label: 'Teardown' },
+    { href: 'teacup.html', label: 'Cup' },
     { href: 'notes.html', label: 'Notes' },
     { href: 'about.html', label: 'About' }
   ];
